@@ -1,0 +1,23 @@
+name: app_sido CI
+
+on:
+  push:
+    branches: [main, develop, "feat/**", "chore/**", "fix/**", "test/**", "docs/**"]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  analyze-and-test:
+    name: Flutter Analyze & Test (Web/Android/iOS)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Verify formatting and lints
+        run: flutter analyze
+      - name: Run unit and widget tests
+        run: flutter test
